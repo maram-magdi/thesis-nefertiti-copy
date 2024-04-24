@@ -17,8 +17,9 @@ const mtlLoader = new MTLLoader();
 
 
 // const meshBust = 0
-const materialBust = new THREE.MeshBasicMaterial({color: 0xff0000})
-
+// const materialBust = new THREE.MeshBasicMaterial({color: 0xff0000})
+let posY = 0;
+let mesh = {}
 
 
 
@@ -37,13 +38,13 @@ function init() {
   document.body.appendChild(renderer.domElement)
   const geometry = new THREE.BoxGeometry(1, 1, 1)
   const material = new THREE.MeshBasicMaterial({color: 0xff0000})
-  const mesh = new THREE.Mesh(geometry, material)
+  // const mesh = {}
   camera.position.set(0, -0.5, 10)
   // scene.add(mesh)
 
   // scene.add(meshBust)
 
-  animate()
+  // animate()
 }
 
 mtlLoader.load(
@@ -60,10 +61,12 @@ mtlLoader.load(
       // called when resource is loaded
       function ( object ) {
 
-        object.scale.set(0.01, 0.01, 0.01);
-        object.position.set(0, 0, 0)
+        mesh = object;
+        console.log(mesh);
+        mesh.scale.set(0.01, 0.01, 0.01);
+        mesh.position.set(0, 0, 0);
+
         // object.lookAt(0,45,0);
-        // object.rotation.x = - Math.PI / 2; 
         
         // scene.add( object );
         // const meshBust = new THREE.Mesh(object, materialBust)
@@ -72,9 +75,9 @@ mtlLoader.load(
         //       child.material = materialBust; // Apply material to each mesh
         //   }
         // });
-        scene.add(object)
+        scene.add(mesh)
 
-        // animate()
+        animate()
 
       },
       // called when loading is in progresses
@@ -97,7 +100,17 @@ mtlLoader.load(
 
 function animate() {
   requestAnimationFrame(animate)
+
+  if (mesh) {
+    // Update rotation based on posY
+    mesh.rotation.y = degrees_to_radians(posY);
+  }
+  // mesh.standard.rotateX = degrees_to_radians(posY)
+
+  
   renderer.render(scene, camera)
+
+
 }
 
 socket.on('connect', () => {
@@ -105,5 +118,23 @@ socket.on('connect', () => {
 
   socket.on('sensorInfo', (data) => {
     console.log(data);
+
+    if(data === "<"){
+      posY -= 45;
+      // console.log(posY);
+    } else if (data === ">"){
+      posY += 45;
+    };
+
   })
 })
+
+
+function degrees_to_radians(degrees)
+{
+  // Store the value of pi.
+  var pi = Math.PI;
+  // Multiply radians by 180 divided by pi to convert to degrees.
+  // return radians * (180/pi);
+  return degrees / (180/pi);
+};
