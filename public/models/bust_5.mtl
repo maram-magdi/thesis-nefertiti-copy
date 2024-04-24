@@ -1,0 +1,12 @@
+# Blender 4.1.0 MTL File: 'None'
+# www.blender.org
+
+newmtl aem_aem21300_3dsl01_mo08-03_p_img
+Ns 6.000004
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd aem_aem21300_3dsl01_mo08-03_p_img.png
