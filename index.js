@@ -3,7 +3,7 @@ import express from 'express';
 import { fileURLToPath } from 'url';
 let app = express();
 
-import path from 'path';
+import path, { delimiter } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -31,3 +31,29 @@ server.listen(port, () => (
 
 import { Server } from "socket.io";
 let io = new Server(server);
+
+import { SerialPort } from 'serialport';
+let parsers = SerialPort.parsers;
+
+import { ReadlineParser } from '@serialport/parser-readline';
+let arduinoPort = new SerialPort({
+    path: 'COM3',
+    baudRate: 115200,
+    dataBits: 8,
+    parity: 'none',
+    stopBits: 1,
+    flowControl: false
+});
+
+let parser = arduinoPort.pipe(new ReadlineParser ({
+    delimiter: '\r\n'
+}));
+
+// let parser = parsers.Readline({
+//     delimiter: '\r\n'
+// });
+
+// arduinoPort.pipe(parser);
+parser.on('data', (data) => {
+    console.log(data);
+});
