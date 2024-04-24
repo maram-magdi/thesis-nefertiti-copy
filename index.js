@@ -33,7 +33,7 @@ import { Server } from "socket.io";
 let io = new Server(server);
 
 import { SerialPort } from 'serialport';
-let parsers = SerialPort.parsers;
+// let parsers = SerialPort.parsers;
 
 import { ReadlineParser } from '@serialport/parser-readline';
 let arduinoPort = new SerialPort({
@@ -56,4 +56,5 @@ let parser = arduinoPort.pipe(new ReadlineParser ({
 // arduinoPort.pipe(parser);
 parser.on('data', (data) => {
     console.log(data);
+    io.emit('sensorInfo', data);
 });

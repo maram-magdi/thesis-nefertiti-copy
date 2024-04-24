@@ -3,6 +3,8 @@
 // import { OBJLoader } from '../node_modules/three/examples/jsm/loaders/OBJLoader';
 // import { MTLLoader } from '../node_modules/three/examples/jsm/loaders/MTLLoader';
 
+let socket = io();
+
 import * as THREE from 'three';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
@@ -97,3 +99,11 @@ function animate() {
   requestAnimationFrame(animate)
   renderer.render(scene, camera)
 }
+
+socket.on('connect', () => {
+  console.log('Client connected!');
+
+  socket.on('sensorInfo', (data) => {
+    console.log(data);
+  })
+})
