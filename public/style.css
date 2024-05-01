@@ -1,0 +1,20 @@
+p {
+    background-color: black;
+    color: gray;
+}
+
+#missing-eye {
+    position: absolute;
+    top: 407px;
+    left: 60px;
+    visibility: hidden;
+    width: 35%;
+}
+
+#cap-crown {
+    position: absolute;
+    top: 255px;
+    left: 846px;
+    visibility: hidden;
+    width: 35%;
+}

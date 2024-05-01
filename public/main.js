@@ -21,6 +21,12 @@ const mtlLoader = new MTLLoader();
 let posY = 0;
 let mesh = {};
 let isSomeoneClose = false;
+let notice = document.getElementById('notice');
+let audio1;
+let audio2 = new Audio ('audio/Nefertiti_v2_p2.mp3');
+
+let missingEye = document.getElementById('missing-eye');
+let capCrown = document.getElementById('cap-crown');
 
 
 
@@ -105,6 +111,10 @@ mtlLoader.load(
 function animate() {
   requestAnimationFrame(animate)
 
+  document.body.addEventListener('click', () => {
+    notice.innerHTML = "";
+  })
+
   if(isSomeoneClose){
     mesh.visible = true;
   } else {
@@ -138,14 +148,42 @@ socket.on('connect', () => {
 
     if(data === "Someone is here!" || data === "<" || data === ">" || data === "^" || data === "v"){
       isSomeoneClose = true;
-      if(data === "<"){
+      missingEye.style.visibility = "hidden";
+      capCrown.style.visibility = "hidden";
+
+      if (data === "Someone is here!"){
+        audio1 = new Audio ('audio/Nefertiti_v2_p1.mp3');
+        // audio.loop = true;
+        audio1.play();
+        posY = 0;
+      } else if (data === "<"){
         posY -= 45;
-        // console.log(posY);
+        if(posY === -360){
+          audio1.pause();
+          audio2.play();
+        } else if (posY === -45){
+          missingEye.style.visibility = "visible";
+        } else if (posY === -270){
+          capCrown.style.visibility = "visible";
+        }
       } else if (data === ">"){
         posY += 45;
+        if(posY === 360){
+          audio1.pause();
+          audio2.play();
+        } else if (posY === 315){
+          missingEye.style.visibility = "visible";
+        } else if (posY === 90){
+          capCrown.style.visibility = "visible";
+        }
       };
+      console.log(posY);
     } else if (data === "No one is here anymore!"){
       isSomeoneClose = false;
+      missingEye.style.visibility = "hidden";
+      capCrown.style.visibility = "hidden";
+      audio1.pause();
+      audio2.pause();
     };
 
   })
