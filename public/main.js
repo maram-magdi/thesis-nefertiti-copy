@@ -19,7 +19,8 @@ const mtlLoader = new MTLLoader();
 // const meshBust = 0
 // const materialBust = new THREE.MeshBasicMaterial({color: 0xff0000})
 let posY = 0;
-let mesh = {}
+let mesh = {};
+let isSomeoneClose = false;
 
 
 
@@ -75,6 +76,9 @@ mtlLoader.load(
         //       child.material = materialBust; // Apply material to each mesh
         //   }
         // });
+
+
+
         scene.add(mesh)
 
         animate()
@@ -101,7 +105,13 @@ mtlLoader.load(
 function animate() {
   requestAnimationFrame(animate)
 
-  if (mesh) {
+  if(isSomeoneClose){
+    mesh.visible = true;
+  } else {
+    mesh.visible = false;
+  }
+
+  if (mesh && mesh.visible) {
     // Update rotation based on posY
     mesh.rotation.y = degrees_to_radians(posY);
   }
@@ -119,11 +129,23 @@ socket.on('connect', () => {
   socket.on('sensorInfo', (data) => {
     console.log(data);
 
-    if(data === "<"){
-      posY -= 45;
-      // console.log(posY);
-    } else if (data === ">"){
-      posY += 45;
+    // if(data === "<"){
+    //   posY -= 45;
+    //   // console.log(posY);
+    // } else if (data === ">"){
+    //   posY += 45;
+    // };
+
+    if(data === "Someone is here!" || data === "<" || data === ">" || data === "^" || data === "v"){
+      isSomeoneClose = true;
+      if(data === "<"){
+        posY -= 45;
+        // console.log(posY);
+      } else if (data === ">"){
+        posY += 45;
+      };
+    } else if (data === "No one is here anymore!"){
+      isSomeoneClose = false;
     };
 
   })
