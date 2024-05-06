@@ -25,10 +25,15 @@ let notice = document.getElementById('notice');
 let audio1;
 let audio2 = new Audio ('audio/Nefertiti_v2_p2.mp3');
 
-let missingEye = document.getElementById('missing-eye');
-let capCrown = document.getElementById('cap-crown');
-
-
+// let missingEye = document.getElementById('missing-eye');
+// let capCrown = document.getElementById('cap-crown');
+let t1 = document.getElementById('t1');
+let t2 = document.getElementById('t2');
+let t3 = document.getElementById('t3');
+let t4 = document.getElementById('t4');
+let t5 = document.getElementById('t5');
+let t6 = document.getElementById('t6');
+let t7 = document.getElementById('t7');
 
 const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
 directionalLight.position.set(0, 1, 0); // Set position of the light
@@ -148,8 +153,15 @@ socket.on('connect', () => {
 
     if(data === "Someone is here!" || data === "<" || data === ">" || data === "^" || data === "v"){
       isSomeoneClose = true;
-      missingEye.style.visibility = "hidden";
-      capCrown.style.visibility = "hidden";
+      // missingEye.style.visibility = "hidden";
+      // capCrown.style.visibility = "hidden";
+      t1.style.visibility = "hidden";
+      t2.style.visibility = "hidden";
+      t3.style.visibility = "hidden";
+      t4.style.visibility = "hidden";
+      t5.style.visibility = "hidden";
+      t6.style.visibility = "hidden";
+      t7.style.visibility = "hidden";
 
       if (data === "Someone is here!"){
         audio1 = new Audio ('audio/Nefertiti_v2_p1.mp3');
@@ -162,28 +174,62 @@ socket.on('connect', () => {
           audio1.pause();
           audio2.play();
         } else if (posY === -45){
-          missingEye.style.visibility = "visible";
+          // missingEye.style.visibility = "visible";
+          t1.style.visibility = "visible";
+        } else if (posY === -90){
+          t2.style.visibility = "visible";
+        } else if (posY === -135){
+          t3.style.visibility = "visible";
+        } else if (posY === -180){
+          t4.style.visibility = "visible";
+        } else if (posY === -225){
+          t5.style.visibility = "visible";
         } else if (posY === -270){
-          capCrown.style.visibility = "visible";
+          // capCrown.style.visibility = "visible";
+          t6.style.visibility = "visible";
+        } else if (posY === -315){
+          t7.style.visibility = "visible";
         }
-      } else if (data === ">"){
-        posY += 45;
-        if(posY === 360){
-          audio1.pause();
-          audio2.play();
-        } else if (posY === 315){
-          missingEye.style.visibility = "visible";
-        } else if (posY === 90){
-          capCrown.style.visibility = "visible";
-        }
-      };
+      }; 
+      // else if (data === ">"){
+      //   posY += 45;
+      //   if(posY === 360){
+      //     audio1.pause();
+      //     audio2.play();
+      //   } else if (posY === 315){
+      //     missingEye.style.visibility = "visible";
+      //   } else if (posY === 90){
+      //     capCrown.style.visibility = "visible";
+      //   }
+      // };
       console.log(posY);
     } else if (data === "No one is here anymore!"){
       isSomeoneClose = false;
-      missingEye.style.visibility = "hidden";
-      capCrown.style.visibility = "hidden";
+      // missingEye.style.visibility = "hidden";
+      // capCrown.style.visibility = "hidden";
+
+      t1.style.visibility = "hidden";
+      t2.style.visibility = "hidden";
+      t3.style.visibility = "hidden";
+      t4.style.visibility = "hidden";
+      t5.style.visibility = "hidden";
+      t6.style.visibility = "hidden";
+      t7.style.visibility = "hidden";
+      
       audio1.pause();
       audio2.pause();
+    } else if (data === "4 touched"){
+      let nfr = new Audio ('audio/Nfr.mp3');
+      nfr.play();
+    } else if (data === "5 touched"){
+      let t = new Audio ('audio/t.mp3');
+      t.play();
+    } else if (data === "6 touched"){
+      let ii = new Audio('audio/ii.mp3');
+      ii.play();
+    } else if (data === "7 touched"){
+      let ti = new Audio ('audio/ti.mp3');
+      ti.play();
     };
 
   })

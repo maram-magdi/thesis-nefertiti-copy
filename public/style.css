@@ -1,20 +1,79 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: black;
+}
+
 p {
     background-color: black;
     color: gray;
 }
 
-#missing-eye {
+/* #missing-eye {
     position: absolute;
-    top: 407px;
-    left: 60px;
+    top: 42%;
+    left: 7%;
     visibility: hidden;
     width: 35%;
 }
 
 #cap-crown {
     position: absolute;
-    top: 255px;
-    left: 846px;
+    top: 26%;
+    left: 60%;
     visibility: hidden;
     width: 35%;
+} */
+
+/* img {
+    visibility: hidden;
+} */
+
+#t1 {
+    position: absolute;
+    top: 39%;
+    left: 5%;
+    visibility: hidden;
+    width: 27%;
+}
+
+#t2, #t3, #t4 {
+    position: absolute;
+    top: 20%;
+    left: 5%;
+    visibility: hidden;
+    width: 27%;
+}
+
+#t3, #t4 {
+    position: absolute;
+    top: 20%;
+    left: 8%;
+    visibility: hidden;
+    width: 27%;
+}
+
+#t5 {
+    position: absolute;
+    top: 26%;
+    left: 68%;
+    visibility: hidden;
+    width: 27%;
+}
+
+#t6 {
+    position: absolute;
+    top: 19%;
+    left: 71%;
+    visibility: hidden;
+    width: 27%;
+}
+
+#t7 {
+    position: absolute;
+    top: 35%;
+    left: 69%;
+    visibility: hidden;
+    width: 27%;
 }
