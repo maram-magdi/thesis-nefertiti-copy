@@ -68,3 +68,53 @@ parser.on('data', (data) => {
     console.log(data);
     io.emit('sensorInfo', data);
 });
+
+let currentDegree = 0;
+// let screen90 = false;
+// let screen180 = false; 
+// let screen270 = false;
+// let screenDegree = 0;
+
+io.on('connection', (socket) => {
+    socket.on('degreeForNefertiti', (data) => {
+        currentDegree = data;
+        console.log(currentDegree);
+
+        // if (currentDegree === 90){
+        //     // screen90 = true;
+        //     // screen180 = false; 
+        //     // screen270 = false;
+        //     // io.emit('screen90State', screen90);
+
+        //     screenDegree = 90;
+        // } else if (currentDegree === 180){
+        //     // screen180 = true;
+        //     // screen90 = false; 
+        //     // screen270 = false;
+        //     // io.emit('screen180State', screen180);
+
+        //     screenDegree = 180;
+        // } else if (currentDegree === 270){
+        //     // screen270 = true;
+        //     // screen90 = false;
+        //     // screen180 = false; 
+        //     // io.emit('screen270State', screen270);
+
+        //     screenDegree = 270;
+        // } else {
+        //     // screen90 = false;
+        //     // screen180 = false; 
+        //     // screen270 = false;
+
+        //     screenDegree = 0;
+        // }
+
+        io.emit('currentDegree', currentDegree);
+
+    })
+})
+
+// Socket.on('degreeForNefertiti', (data) => {
+//     currentDegree = data;
+//     console.log(currentDegree);
+// });

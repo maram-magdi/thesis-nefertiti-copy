@@ -128,7 +128,7 @@ function animate() {
 
   if (mesh && mesh.visible) {
     // Update rotation based on posY
-    mesh.rotation.y = degrees_to_radians(posY);
+    mesh.rotation.y = degrees_to_radians(-posY);
   }
   // mesh.standard.rotateX = degrees_to_radians(posY)
 
@@ -169,25 +169,30 @@ socket.on('connect', () => {
         audio1.play();
         posY = 0;
       } else if (data === "<"){
-        posY -= 45;
-        if(posY === -360){
+        posY += 45;
+        if (posY > 360) {
+          posY = posY % 360;
+        }
+        socket.emit('degreeForNefertiti', posY);
+        if(posY === 360){
           audio1.pause();
           audio2.play();
-        } else if (posY === -45){
+        } else if (posY === 45){
           // missingEye.style.visibility = "visible";
           t1.style.visibility = "visible";
-        } else if (posY === -90){
+        } else if (posY === 90){
           t2.style.visibility = "visible";
-        } else if (posY === -135){
+          console.log(posY);
+        } else if (posY === 135){
           t3.style.visibility = "visible";
-        } else if (posY === -180){
+        } else if (posY === 180){
           t4.style.visibility = "visible";
-        } else if (posY === -225){
+        } else if (posY === 225){
           t5.style.visibility = "visible";
-        } else if (posY === -270){
+        } else if (posY === 270){
           // capCrown.style.visibility = "visible";
           t6.style.visibility = "visible";
-        } else if (posY === -315){
+        } else if (posY === 315){
           t7.style.visibility = "visible";
         }
       }; 
