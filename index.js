@@ -18,8 +18,18 @@ let server = http.createServer(app);
 // Serve static files from the "public" directory
 // app.use(express.static(path.join(__dirname, 'public')));
 
+// for the Nefertiti model:
 app.use('/', express.static('public'));
 // app.use('/experience', express.static('public/experience'));
+
+// for the 90 screen: 
+app.use('/90', express.static('screen90'));
+
+// for the 180 screen: 
+app.use('/180', express.static('screen180'));
+
+// for the 270 screen: 
+app.use('/270', express.static('screen270'));
 
 let port = process.env.PORT || 5173;
 server.listen(port, () => (
